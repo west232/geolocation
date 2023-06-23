@@ -5,6 +5,7 @@ pipeline{
     }
     environment{
         PATH = "/opt/apache-maven-3.9.2/bin:$PATH"
+        dockerimage = ''
     }
 
     stages{
@@ -21,6 +22,13 @@ pipeline{
         stage('code test'){
             steps{
                 sh 'mvn test'
+            }
+        }
+        stage('Build Image') {
+            steps {
+                script{
+                    dockerImage = docker.build registry + ":$BUILD_NUMBER"
+                } 
             }
         }
     }
