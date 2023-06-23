@@ -26,12 +26,12 @@ pipeline{
                 sh 'mvn test'
             }
         }
-        stage('Build Image') {
+        /*stage('Build Image') {
             steps {
                 script{
                     dockerImage = docker.build registry + ":$BUILD_NUMBER"
                 } 
             }
-        }
+        }*/
     }
 }
