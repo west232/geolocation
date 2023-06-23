@@ -10,7 +10,7 @@ pipeline{
     stages{
         stage('cloning code'){
             steps{
-                git credentialsId: 'jenk', url; 'https://github.com/west232/geolocation.git', branch: 'geo'
+                git credentialsId: 'jenk', url: 'https://github.com/west232/geolocation.git', branch: 'geo'
             }
         }
         stage('build code'){
