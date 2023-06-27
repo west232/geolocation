@@ -28,14 +28,8 @@ pipeline{
             }
         }
         stage("sonar quality check"){   
-            agent {
-              docker {
-                image 'openjdk:11'
-                label 'docker'
-                args  '-v /tmp:/tmp'
-              }
-
-            } 
+            agent { docker 'openjdk:11' }
+        
             steps{
                 withSonarQubeEnv('sonar') {
                     /*sh 'chmod + x mvnw'*/
