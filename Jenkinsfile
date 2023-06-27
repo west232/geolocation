@@ -30,9 +30,8 @@ pipeline{
             agent {
               label 'docker'
                 images 'openjdk:11'
-               }
-                
             }
+                
             steps{
                 withSonarQubeEnv(credentialsId: 'jenkins') {
                     sh 'chmod + x mvnw'
@@ -47,5 +46,5 @@ pipeline{
                 } 
             }
         }*/
-    }
+    } 
 }
