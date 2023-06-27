@@ -19,6 +19,7 @@ pipeline{
         stage('build code'){
             steps{
                 sh 'mvn clean install'
+                
             }
         }
         stage('code test'){
@@ -28,7 +29,7 @@ pipeline{
         }
         stage("sonar quality check"){        
             steps{
-                withSonarQubeEnv(installationName: 'Sonar', credentialsId: 'sonar') {
+                withSonarQubeEnv('sonar') {
                     /*sh 'chmod + x mvnw'*/
                     sh 'mvn clean package sonar:sonar'
                }
