@@ -1,5 +1,5 @@
 pipeline{
-    agent none
+    agent any
     tools{
         maven 'maven'
     }
@@ -28,7 +28,8 @@ pipeline{
             }
         }
         stage("sonar quality check"){   
-            agent { docker 'openjdk:11' }
+            /*agent { docker 'openjdk:11' }
+            this  doesn´t work yet*/
         
             steps{
                 withSonarQubeEnv('sonar') {
