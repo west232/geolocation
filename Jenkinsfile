@@ -26,12 +26,11 @@ pipeline{
                 sh 'mvn test'
             }
         }
-        stage("sonar quality check"){
-            agent {
-                docker {
-                    image 'openjdk:11'
-                }
+        stage("sonar quality check"){ 
+           docker {
+              image 'openjdk:11'
             }
+        
                 
             steps{
                 withSonarQubeEnv(credentialsId: 'jenkins') {
