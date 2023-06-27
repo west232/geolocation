@@ -28,7 +28,7 @@ pipeline{
         }
         stage("sonar quality check"){        
             steps{
-                withSonarQubeEnv(installationName: 'Sonarqube', credentialsId: 'jenkins') {
+                withSonarQubeEnv(installationName: 'sonar', credentialsId: 'jenkins') {
                     sh 'chmod + x mvnw'
                     sh './mvnw sonarqube'
                }
