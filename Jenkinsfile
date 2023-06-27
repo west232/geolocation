@@ -27,7 +27,15 @@ pipeline{
                 sh 'mvn test'
             }
         }
-        stage("sonar quality check"){        
+        stage("sonar quality check"){   
+            agent {
+              docker {
+                image 'openjdk:11'
+                label 'docker'
+                args  '-v /tmp:/tmp'
+              }
+
+            } 
             steps{
                 withSonarQubeEnv('sonar') {
                     /*sh 'chmod + x mvnw'*/
