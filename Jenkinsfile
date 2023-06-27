@@ -12,7 +12,7 @@ pipeline{
 
     stages{
         stage('cloning code'){
-            steps{
+            steps {
                 git credentialsId: 'jenk', url: 'https://github.com/west232/geolocation.git', branch: 'geo'
             }
         }
@@ -22,13 +22,13 @@ pipeline{
             }
         }
         stage('code test'){
-            steps{
+            steps {
                 sh 'mvn test'
             }
         }
         stage('sonar code quality'){
-            agent{
-                docker{
+            agent {
+                docker {
                     image 'openjdk:11'
                 }
             }
