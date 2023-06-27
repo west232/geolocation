@@ -28,11 +28,10 @@ pipeline{
         }
         stage("sonar code quality"){
             agent {
-                label {
-                   'docker' {
-                      image 'openjdk:11'
-                    }
-                }
+                docker {
+                 image 'openjdk:11'
+               }
+                
             }
             steps{
                 withSonarQubeEnv(credentialsId: 'jenkins') {
