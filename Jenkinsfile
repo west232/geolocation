@@ -26,12 +26,7 @@ pipeline{
                 sh 'mvn test'
             }
         }
-        stage("sonar quality check"){ 
-           docker {
-              image 'openjdk:11'
-            }
-        
-                
+        stage("sonar quality check"){        
             steps{
                 withSonarQubeEnv(credentialsId: 'jenkins') {
                     sh 'chmod + x mvnw'
