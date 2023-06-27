@@ -26,10 +26,12 @@ pipeline{
                 sh 'mvn test'
             }
         }
-        stage('sonar code quality'){
+        stage("sonar code quality"){
             agent {
-                docker {
-                    image 'openjdk:11'
+                label {
+                   'docker' {
+                      image 'openjdk:11'
+                    }
                 }
             }
             steps{
