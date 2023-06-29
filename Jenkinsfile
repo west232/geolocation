@@ -8,6 +8,7 @@ pipeline{
         dockerimage = ''
         registry = '461228995532.dkr.ecr.us-east-1.amazonaws.com/jenk'
         registryCredential = 'jenk'
+        VERSION = "$env.BUILD_ID"
     }
 
     stages{
@@ -38,12 +39,19 @@ pipeline{
                }
             }   
         }
-        /*stage('Build Image') {
+        stage('Build Image') {
             steps {
                 script{
-                    dockerImage = docker.build registry + ":$BUILD_NUMBER"
+                    withCredentials([string(credentialsId: 'docker_pass', variable: 'docker_password')]){
+                       sh '''
+                          docker build -t 52.201.218.178:8083/springapp:${VERSION} .
+                          docker login -u admin -p $docker_password 52.201.218.178:8083
+                          docker push 52.201.218.178:8083/springapp:${VERSION}
+                          docker rmi  52.201.218.178:8083/springapp:${VERSION}
+                          '''
+                    }
                 } 
             }
-        }*/
+        }
     } 
 }
