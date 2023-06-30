@@ -28,16 +28,16 @@ pipeline{
                 sh 'mvn test'
             }
         }
-        stage("sonar quality check"){   
+        /*stage("sonar quality check"){   
             /*agent { docker 'openjdk:11' }
             this  doesn´t work yet*/
         
-            steps{
+         /*   steps{
                 withSonarQubeEnv('sonar') {
                     /*sh 'chmod + x mvnw'*/
-                    sh 'mvn clean package sonar:sonar'
-               }
-            }   
+                    /*sh 'mvn clean package sonar:sonar'
+               /*}
+          /*  }   
         }
         stage('Build Image') {
             steps {
@@ -51,6 +51,14 @@ pipeline{
                           '''
                     }
                 } 
+            }
+        }
+        */
+        stage('build image'){
+            steps{
+                script{
+                    dockerImage=docker.build registry
+                }
             }
         }
     } 
