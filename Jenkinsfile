@@ -7,7 +7,7 @@ pipeline{
         PATH = "/opt/apache-maven-3.9.2/bin:$PATH"
         dockerimage = ''
         registry = '461228995532.dkr.ecr.us-east-1.amazonaws.com/jenk'
-        registryCredential = 'jenk'
+        registryCredential = 'jenk-aws'
         VERSION = "$env.BUILD_ID"
     }
 
