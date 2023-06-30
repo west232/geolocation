@@ -11,6 +11,7 @@ pipeline{
         VERSION = "$env.BUILD_ID"
     }
 
+
     stages{
         stage('cloning code'){
             steps {
@@ -57,7 +58,7 @@ pipeline{
         stage('build image'){
             steps{
                 script{
-                    dockerImage=docker.build registry
+                    dockerImage = docker.build registry
                 }
             }
         }
