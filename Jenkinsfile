@@ -39,7 +39,7 @@ pipeline{
                      'mvn clean package sonar:sonar'
                }
             }   
-        } */ */
+        } */
         stage('Build Image') {
             steps {
                 script{
