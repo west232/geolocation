@@ -29,38 +29,39 @@ pipeline{
                 sh 'mvn test'
             }
         }
-        /*stage("sonar quality check"){   
-            /*agent { docker 'openjdk:11' }
+      /*   stage("sonar quality check"){   
+            agent { docker 'openjdk:11' }
             this  doesn´t work yet*/
         
-         /*   steps{
+         /*    steps{
                 withSonarQubeEnv('sonar') {
-                    /*sh 'chmod + x mvnw'*/
-                    /*sh 'mvn clean package sonar:sonar'
-               /*}
-          /*  }   
-        }
+                     'chmod + x mvnw'
+                     'mvn clean package sonar:sonar'
+               }
+            }   
+        } */ */
         stage('Build Image') {
             steps {
                 script{
                     withCredentials([string(credentialsId: 'docker_pass', variable: 'docker_password')]){
                        sh '''
-                          docker build -t 52.201.218.178:8083/springapp:${VERSION} .
-                          docker login -u admin -p $docker_password 52.201.218.178:8083
-                          docker push 52.201.218.178:8083/springapp:${VERSION}
-                          docker rmi  52.201.218.178:8083/springapp:${VERSION}
+                          docker build -t 52.87.178.171:8084/springapp:${VERSION} .
+                          docker login -u admin -p $docker_password 52.87.178.171:8084
+                          docker push 52.87.178.171:8084/springapp:${VERSION}
+                          docker rmi  52.87.178.171:8084/springapp:${VERSION}
                           '''
                     }
                 } 
-            }
+            } 
         }
-        */
-        stage('build image'){
+       
+       /*  stage('build image'){
             steps{
                 script{
                     dockerImage = docker.build registry
                 }
             }
-        }
+        } */
     } 
 }
+
