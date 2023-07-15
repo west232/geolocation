@@ -7,7 +7,7 @@ pipeline{
         PATH = "/opt/apache-maven-3.9.2/bin:$PATH"
         dockerimage = ''
         registry = '461228995532.dkr.ecr.us-east-1.amazonaws.com/jenk'
-        registryCredential = 'jenk-aws'
+        registryCredential = 'jenk'
         VERSION = "$env.BUILD_ID"
     }
 
@@ -59,17 +59,19 @@ pipeline{
             steps{
                 script{
                     dockerImage = docker.build registry
+                    sh 'aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 461228995532.dkr.ecr.us-east-1.amazonaws.com'
+                    sh 'docker push 461228995532.dkr.ecr.us-east-1.amazonaws.com/jenk:latest'
                 }
             }
         } 
-        stage('push image'){
+        /* stage('push image'){
             steps{
                 script{
                     sh 'aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 461228995532.dkr.ecr.us-east-1.amazonaws.com'
                     sh 'docker push 461228995532.dkr.ecr.us-east-1.amazonaws.com/jenk:latest'
                 }
             }
-        } 
+        }  */
 
     } 
 }
