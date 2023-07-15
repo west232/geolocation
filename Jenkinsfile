@@ -60,8 +60,9 @@ pipeline{
                 script{
                     dockerImage = docker.build registry
                     sh 'aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 461228995532.dkr.ecr.us-east-1.amazonaws.com'
-                    sh 'docker push 461228995532.dkr.ecr.us-east-1.amazonaws.com/jenk:latest'
-                    sh 'docker rmi 461228995532.dkr.ecr.us-east-1.amazonaws.com/jenk:latest'
+                    sh 'docker tag jenk:latest 461228995532.dkr.ecr.us-east-1.amazonaws.com/jenk:${VERSION}'
+                    sh 'docker push 461228995532.dkr.ecr.us-east-1.amazonaws.com/jenk:${VERSION}'
+                    sh 'docker rmi 461228995532.dkr.ecr.us-east-1.amazonaws.com/jenk:${VERSION}'
                 }
             }
         } 
