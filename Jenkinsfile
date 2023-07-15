@@ -40,7 +40,7 @@ pipeline{
                }
             }   
         } */
-        stage('Build Image') {
+        /* stage('Build Image') {
             steps {
                 script{
                     withCredentials([string(credentialsId: 'docker_pass', variable: 'docker_password')]){
@@ -53,15 +53,24 @@ pipeline{
                     }
                 } 
             } 
-        }
+        } */
        
-       /*  stage('build image'){
+        stage('build image'){
             steps{
                 script{
                     dockerImage = docker.build registry
                 }
             }
-        } */
+        } 
+        stage('push image'){
+            steps{
+                script{
+                    sh 'aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 461228995532.dkr.ecr.us-east-1.amazonaws.com'
+                    sh 'docker push 461228995532.dkr.ecr.us-east-1.amazonaws.com/jenk:latest'
+                }
+            }
+        } 
+
     } 
 }
 
