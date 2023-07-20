@@ -59,7 +59,7 @@ pipeline{
             steps{
                 script{
                     /* dockerImage = docker.build registry */
-                    sh 'docker build -t geolocation .'
+                    sh 'docker build -t jenk .'
                     
                 }
             }
@@ -69,9 +69,8 @@ pipeline{
             steps{
                 script{
                     sh 'aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 461228995532.dkr.ecr.us-east-1.amazonaws.com'
-                    sh 'docker tag geolocation jenk/geolocation:1.0'
-                    sh 'docker push jenk/geolocation:1.0'
-                    sh 'docker rmi jenk/geolocation:1.0'
+                    sh 'docker tag geolocation:latest 461228995532.dkr.ecr.us-east-1.amazonaws.com/jenk:latest'
+                    sh 'docker push 461228995532.dkr.ecr.us-east-1.amazonaws.com/jenk:latest'
                 }
             }
         }  
