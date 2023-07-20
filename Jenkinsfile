@@ -70,8 +70,8 @@ pipeline{
                 script{
                     sh 'aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 461228995532.dkr.ecr.us-east-1.amazonaws.com'
                     sh 'docker tag geolocation jenk/geolocation:1.0'
-                    sh 'docker push geolocation jenk/geolocation:1.0'
-                    sh 'docker rmi geolocation jenk/geolocation:1.0'
+                    sh 'docker push jenk/geolocation:1.0'
+                    sh 'docker rmi jenk/geolocation:1.0'
                 }
             }
         }  
