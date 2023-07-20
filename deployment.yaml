@@ -4,12 +4,8 @@ kind: Service
 metadata:
   name: myapp
   labels:
-    helm.sh/chart: myapp-0.2.0
-    app.kubernetes.io/name: myapp
-    app.kubernetes.io/instance: myapp
-    app.kubernetes.io/version: "1.16.0"
-    app.kubernetes.io/managed-by: Helm
-spec:
+      app: geolocation
+  spec:
   type: NodePort
   ports:
     - port: 8090
@@ -17,35 +13,29 @@ spec:
       protocol: TCP
       name: http
   selector:
-    app.kubernetes.io/name: myapp
-    app.kubernetes.io/instance: myapp
+     matchLabels:
+        app: geolocation
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: myapp
+  name: geolocation
   labels:
-    helm.sh/chart: myapp-0.2.0
-    app.kubernetes.io/name: myapp
-    app.kubernetes.io/instance: myapp
-    app.kubernetes.io/version: "1.16.0"
-    app.kubernetes.io/managed-by: Helm
+      app: geolocation
 spec:
-  replicas: 2
+  replicas: 3
   selector:
     matchLabels:
-      app.kubernetes.io/name: myapp
-      app.kubernetes.io/instance: myapp
+      app: geolocation
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: myapp
-        app.kubernetes.io/instance: myapp
+        app: geolocation
     spec:
       imagePullSecrets:
         - name: registry-secret
       containers:
-        - name: myapp
+        - name: geolocation
           image: 461228995532.dkr.ecr.us-east-1.amazonaws.com/jenk
           command: ["/bin/sh"]
           args: ["-c","sh /usr/local/tomcat/bin/startup.sh;while true; do echo hello; sleep 10;done"]
