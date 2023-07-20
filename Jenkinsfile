@@ -59,7 +59,7 @@ pipeline{
             steps{
                 script{
                     /* dockerImage = docker.build registry */
-                    sh 'docker build -t jenk .'
+                    sh 'docker build -t geolocation .'
                     
                 }
             }
