@@ -15,7 +15,7 @@ pipeline{
     stages{
         stage('cloning code'){
             steps {
-                git credentialsId: 'jenk', url: 'https://github.com/west232/geolocation.git', branch: 'geo'
+                git credentialsId: 'jenk-github', url: 'https://github.com/west232/geolocation.git', branch: 'geo'
             }
         }
         stage('build code'){
@@ -58,18 +58,30 @@ pipeline{
         stage('build image'){
             steps{
                 script{
-                    dockerImage = docker.build registry
-                    sh 'aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 461228995532.dkr.ecr.us-east-1.amazonaws.com'
-                    sh 'docker push 461228995532.dkr.ecr.us-east-1.amazonaws.com/jenk:latest'
-                    sh 'docker rmi 461228995532.dkr.ecr.us-east-1.amazonaws.com/jenk:latest'
+                    /* dockerImage = docker.build registry */
+                    sh 'docker build -t geolocation .'
+                    
                 }
             }
-        } 
-        /* stage('push image'){
+        }
+        /* this is for practice */ 
+        stage('push image'){
+            steps{
+                script{
+                    sh 'aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 461228995532.dkr.ecr.us-east-1.amazonaws.com'
+                    sh 'docker tag geolocation jenk/geolocation:1.0'
+                    sh 'docker push geolocation jenk/geolocation:1.0'
+                    sh 'docker rmi geolocation jenk/geolocation:1.0'
+                }
+            }
+        }  
+    
+       /*  stage('push image'){
             steps{
                 script{
                     sh 'aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 461228995532.dkr.ecr.us-east-1.amazonaws.com'
                     sh 'docker push 461228995532.dkr.ecr.us-east-1.amazonaws.com/jenk:latest'
+                    sh 'docker rmi 461228995532.dkr.ecr.us-east-1.amazonaws.com/jenk:latest'
                 }
             }
         }  */
