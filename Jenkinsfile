@@ -74,6 +74,9 @@ pipeline{
                 }
             }
         }  
+        stage("kubernetes deployment"){
+            sh 'kubectl apply -f deployment.yaml'
+        }
     
        /*  stage('push image'){
             steps{
