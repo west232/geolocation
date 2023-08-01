@@ -1,0 +1,72 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: myapp
+  labels:
+      app: geolocation
+  spec:
+  type: NodePort
+  ports:
+    - port: 8090
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+     matchLabels:
+        app: geolocation
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: geolocation
+  labels:
+      app: geolocation
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: geolocation
+  template:
+    metadata:
+      labels:
+        app: geolocation
+    spec:
+      imagePullSecrets:
+        - name: registry-secret
+      containers:
+        - name: geolocation
+          image: 461228995532.dkr.ecr.us-east-1.amazonaws.com/jenk
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 8082
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: 60
+            periodSeconds: 5
+            successThreshold: 1
+            failureThreshold: 3
+            timeoutSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: 60
+            periodSeconds: 5
+            successThreshold: 1
+            failureThreshold: 3
+            timeoutSeconds: 10
+          resources:
+            requests:
+              memory: 0.25Gi
+              cpu: 0.5
+            limits:
+              memory: 0.25Gi 
+              cpu: 0.5
+
+            no: 
+              nothing: here 
