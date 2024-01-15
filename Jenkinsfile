@@ -60,7 +60,7 @@ pipeline{
                 script{
                     /* dockerImage = docker.build registry */
                     sh 'docker build -t geolocation .'
-                    sh echo "docker build success"
+                    
                     
                 }
             }
