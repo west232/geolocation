@@ -4,7 +4,7 @@ pipeline{
         maven 'maven'
     }
     environment{
-        PATH = "/opt/apache-maven-3.9.2/bin:$PATH"
+        PATH = "maven:$PATH"
         dockerimage = ''
         registry = '461228995532.dkr.ecr.us-east-1.amazonaws.com/jenk'
         registryCredential = 'jenk'
@@ -64,7 +64,7 @@ pipeline{
                 }
             }
         }
-        /* this is for practice */ 
+        /* this is for practice 
         stage('push image'){
             steps{
                 script{
@@ -93,6 +93,7 @@ pipeline{
                 }
             }
         }  */
+        
 
     } 
 }
