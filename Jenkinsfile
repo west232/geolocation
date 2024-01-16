@@ -65,7 +65,11 @@ pipeline{
                 }
             }
         }
+<<<<<<< HEAD
         // this is for practice 
+=======
+        /* this is for practice 
+>>>>>>> 6eab3d671358ecd48205afdc26bc7a45c3cd1ac2
         stage('push image'){
             steps{
                 script{
