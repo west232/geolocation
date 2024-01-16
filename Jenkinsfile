@@ -6,8 +6,8 @@ pipeline{
     environment{
         PATH = "maven:$PATH"
         dockerimage = ''
-        registry = '461228995532.dkr.ecr.us-east-1.amazonaws.com/jenk'
-        registryCredential = 'jenk'
+        //registry = '461228995532.dkr.ecr.us-east-1.amazonaws.com/jenk'
+        //registryCredential = 'jenk'
         VERSION = "$env.BUILD_ID"
     }
 
@@ -65,16 +65,20 @@ pipeline{
                 }
             }
         }
-        /* this is for practice 
+        // this is for practice 
         stage('push image'){
             steps{
                 script{
-                    sh 'aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 461228995532.dkr.ecr.us-east-1.amazonaws.com'
-                    sh 'docker tag geolocation:latest 461228995532.dkr.ecr.us-east-1.amazonaws.com/jenk:latest'
-                    sh 'docker push 461228995532.dkr.ecr.us-east-1.amazonaws.com/jenk:latest'
+                    withCredentials([string(credentialsId: 'docker_password', variable: 'docker_hub')]) {
+                        sh 'docker login -u wesley232 -p ${docker_hub}'
+                        sh 'docker tag geolocation wesley232/geolocation:1.0'
+                        sh 'docker push wesley232/geolocation:1.0'
+                    }
+                    
                 }
             }
-        }  
+        }
+        /*  
         stage('kubernetes deployment'){
             steps{
                 script{
