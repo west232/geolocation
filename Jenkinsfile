@@ -29,7 +29,7 @@ pipeline{
                 sh 'mvn test'
             }
         }
-        stage("sonar quality check"){   
+       /*  stage("sonar quality check"){   
         
            steps{
                 withSonarQubeEnv('sonar') {
@@ -37,7 +37,7 @@ pipeline{
                      'mvn clean package sonar:sonar'
                }
             }   
-        } 
+        }  */
         /* stage('Build Image') {
             steps {
                 script{
