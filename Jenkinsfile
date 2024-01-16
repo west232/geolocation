@@ -98,7 +98,15 @@ pipeline{
                 }
             }
         }  */
-        
+        stage('Publish') {
+            /* when {
+                expression { return params.RELEASE }
+            } */
+
+            steps {
+                archiveArtifacts('**/*.jar')
+            }
+        }
 
     } 
 }
