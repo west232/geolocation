@@ -99,6 +99,7 @@ pipeline{
             }
         }  */
         stage('Publish') {
+            //to publish suscessful artifact 
             /* when {
                 expression { return params.RELEASE }
             } */
