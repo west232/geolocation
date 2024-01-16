@@ -71,7 +71,7 @@ pipeline{
                 script{
                     withCredentials([string(credentialsId: 'docker_password', variable: 'docker_hub')]) {
                         sh 'docker login -u wesley232 -p ${docker_hub}'
-                        sh 'docker tag wesley232/jenkins geolocation:1.0 '
+                        sh 'docker tag geolocation wesley232/jenkins:1.0'
                         sh 'docker push wesley232/jenkins:1.0'
                     }
                     
