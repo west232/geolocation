@@ -29,17 +29,15 @@ pipeline{
                 sh 'mvn test'
             }
         }
-      /*   stage("sonar quality check"){   
-            agent { docker 'openjdk:11' }
-            this  doesn´t work yet*/
+       /*  stage("sonar quality check"){   
         
-         /*    steps{
+           steps{
                 withSonarQubeEnv('sonar') {
                      'chmod + x mvnw'
                      'mvn clean package sonar:sonar'
                }
             }   
-        } */
+        }  */
         /* stage('Build Image') {
             steps {
                 script{
@@ -71,8 +69,8 @@ pipeline{
                 script{
                     withCredentials([string(credentialsId: 'docker_password', variable: 'docker_hub')]) {
                         sh 'docker login -u wesley232 -p ${docker_hub}'
-                        sh 'docker tag geolocation wesley232/geolocation:1.0'
-                        sh 'docker push wesley232/geolocation:1.0'
+                        sh 'docker tag geolocation wesley232/geolocation:1.1'
+                        sh 'docker push wesley232/geolocation:1.1'
                     }
                     
                 }
@@ -98,7 +96,16 @@ pipeline{
                 }
             }
         }  */
-        
+        stage('Publish') {
+            //to publish suscessful artifact 
+            /* when {
+                expression { return params.RELEASE }
+            } */
+
+            steps {
+                archiveArtifacts('**/*.jar')
+            }
+        }
 
     } 
 }
